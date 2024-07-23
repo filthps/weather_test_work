@@ -1,12 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
+    <link  rel="stylesheet" href="{% static 'css/main.css' %}">
     {% block head %}{% endblock head %}
 </head>
 <body>
 {% block body %}{% endblock body %}
+<script>
+    const queue = [];
+    get_token = () => {
+        return "{{ csrf_token }}";
+    };
+    get_search_city_api_url = () => {
+        return "{% url 'api_call' %}";
+    };
+</script>
 {% block script %}{% endblock script %}
 </body>
 </html>

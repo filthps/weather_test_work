@@ -1,3 +1,22 @@
 {% extends "main.html" %}
-
-{% block script %}{% endblock script %}
+{% load rest_framework %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock head %}
+{% block body %}
+    <div id="form">
+        <form class="form-horizontal" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-sm-offset-2 col-sm-10">
+        {% render_form form %}
+            </div>
+            <input type="submit" class="btn btn-default generate" value="Узнать прогноз погоды"/>
+            <select></select>
+        </form>
+    </div>
+{% endblock body %}
+{% block script %}
+    <script type="module" src="{% static 'js/api.js' %}"></script>
+    <script type="module" src="{% static 'js/form.js' %}"></script>
+{% endblock script %}
