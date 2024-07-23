@@ -5,13 +5,12 @@ from celery import Celery
 
 
 API_KEY = dotenv_values("api_keys.env")["TGIS_API_KEY"]
-app = Celery("tasks", broker='pyamqp://guest@localhost//')
+REDIS = dotenv_values("api_keys.env")["REDIS_DB_PATH"]
+
+app = Celery("tasks", broker=REDIS, backend=REDIS)
 
 
 @app.task()
-def get_city_coordinates(city_name: str):
-    if not isinstance(city_name, str):
-        pass
-    if not city_name:
-        ...
+def call_to_api_get_city_coordinates(*a, **kw):
+    return 1
 
