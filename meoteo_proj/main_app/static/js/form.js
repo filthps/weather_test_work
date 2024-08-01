@@ -22,9 +22,6 @@ var create_request_body = (type, item) => {
         "item": item
     });
 };
-var push_new_task_in_queue = (id) => {
-    queue.push(id);
-};
 window.onload = () => {
     var search_city_names = (e) => {
         var request = new XMLHttpRequest();
@@ -36,16 +33,17 @@ window.onload = () => {
             if (!event.target.status == 200) {
                 return
             }
-            let task_id = event.target.data["task_id"]
-            push_new_task_in_queue(task_id);
+            let task_id = JSON.parse(event.target.response)["task_id"];
+            push_new_task_in_queue(task_id, "search_city");
         };
         request.setRequestHeader("X-CSRFToken", get_token());
         request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         request.setRequestHeader("content-type", "application/json");
         let text = get_cities_input_value();
-        if (!text) {
+        if (!text.length) {
             return
         }
+        remove_all_tasks_specific_type("search_city");
         request.send(create_request_body("search_city", text));
     };
     var replace_choices_list = () => {

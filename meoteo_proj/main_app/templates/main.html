@@ -10,14 +10,18 @@
 <body>
 {% block body %}{% endblock body %}
 <script>
-    const queue = [];
+    const queue = JSON.parse(localStorage.getItem("queue")) || [];
     get_token = () => {
         return "{{ csrf_token }}";
     };
     get_search_city_api_url = () => {
         return "{% url 'api_call' %}";
     };
+    get_check_task_url = () => {
+        return "{% url 'check_task' %}"
+    };
 </script>
+<script type="text/javascript" src="{% static 'js/tasks.js' %}"></script>
 {% block script %}{% endblock script %}
 </body>
 </html>
